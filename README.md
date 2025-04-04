@@ -1,70 +1,113 @@
-# How to configure Active Directory in a home lab environment to simulate an organizational environment.
+# Setting up Active Directory on Windows Server 2019
 
-We need to understand the four main parts of this setup individually and how they work in an environment.
+This guide offers a clear, step-by-step process for setting up a Windows Server 2019 machine, installing Active Directory Domain Services (AD DS), promoting the server to a domain controller, and configuring DNS. Furthermore, it addresses important concepts related to Active Directory, Group Policy Management (GPM), and Registry Editor, which are essential for effectively managing a Windows server environment.
 
-- Active Directory Domain Services(DS)
-- Active Directory Certificate Services (CS)
-- Active Domain Controller (DC)
-- DNS service on Active (DNS)
-  
-# Important to understand DNS and Active Directory Integration
+ (Will add a picture to explain the whole setup)
 
-In an **Active Directory (AD)** environment, **DNS** is crucial in ensuring the smooth operation of user logins, service connections, and domain controller (DC) communication. In this post, I’ll explain how DNS interacts with Active Directory and its key components in an AD setup.
+<h3>1. Preparing the Windows Server 2019 Environment</h3>
+Before beginning the installation, ensure you have the following:
 
-## 1. DNS Role in User Login
+- A fresh installation of Windows Server 2019 (Standard or Datacenter version).
+- A static IP address (recommended for AD DS and DNS).
+- Administrative credentials for the server.
 
-When a user attempts to log into a network, DNS acts as a **broker** to locate the appropriate Domain Controller (DC). Here's how the process works:
+Steps to Prepare the Server:
+- Install Windows Server 2019: Follow the installation steps for Windows Server 2019 on your machine.
+- Configure the Server: Set the machine’s hostname and ensure it has a static IP address:
+- Open Network and Sharing Center → Change Adapter Settings → Right-click your network adapter → Properties → Internet Protocol Version 4 (TCP/IPv4) → Set a static IP address.
 
-- The user tries to log in by entering domain credentials.
-- The DNS query is initiated to locate the **Domain Controller (DC)** for the requested domain.
-- DNS uses **SRV (Service) Records** to identify the correct DC that handles authentication requests for that domain.
-- DNS resolves the domain to the **IP address** of the Domain Controller and sends it back to the user's system.
-- The user’s machine communicates with the DC and authentication proceeds.
+Tip: Install the Latest Windows Updates: It’s always a good idea to ensure the server is current.
 
-This process ensures that login requests are routed to the correct DC for smooth authentication and access to resources.
+<h3>2. Installing Active Directory Domain Services (AD DS)</h3>
+Active Directory Domain Services is the role that provides a central directory for user authentication and resource management.
 
-## 2. DNS Role in Service Connections
+Steps to Install AD DS:
+Open Server Manager: 
+- After logging in to the server, click the Server Manager icon in the taskbar.
+- Add Roles and Features:
+- Click on Add Roles and Features.
+- Click Next until you reach the Server Roles section.
+- Check the box next to Active Directory Domain Services and click Next.
 
-Once a user is authenticated, they may need to connect to resources like **File Servers** or other services. DNS continues to play a key role in finding these services:
+Install: Continue the wizard, reviewing the features, and click Install. This will install the necessary components for Active Directory.
 
-- The user's system queries DNS to resolve the **service name** (e.g., a file server).
-- DNS looks up the **SRV record** for the service, finds the corresponding IP address, and sends it to the user’s system.
-- The system establishes a connection to the requested service using the resolved IP address.
+<h3>3. Promoting the Server to Domain Controller</h3>
+After installing AD DS, the next step is to promote the server to a Domain Controller.
 
-This ensures that services are accessible to authenticated users without manual configuration, allowing seamless resource access.
+Steps to Promote the Server:
+- Open Server Manager.
+- Once AD DS is installed, click on the Notification Flag at the top right and click Promote this server to a domain controller.
 
-## 3. DNS and Active Directory Replication
+Deployment Configuration:
 
-In an environment with multiple **Domain Controllers (DCs)**, ensuring availability and replication is critical. DNS is essential for this process:
+- Choose Add a new forest if you are setting up a new domain, and provide a Root domain name (e.g., example.local).
+- Select the Forest functional level (Windows Server 2016 or higher is recommended).
+- Set the Domain functional level (usually the same as the forest functional level).
+- Set Directory Services Restore Mode (DSRM) password: This password is important for emergency scenarios where you need to restore AD.
 
-- Multiple DCs are deployed to provide redundancy in case one DC fails.
-- DNS helps DCs locate each other and facilitates **replication** of AD data (user credentials, policies, etc.) between them.
-- This ensures that all DCs have synchronized data, and users can authenticate and access resources regardless of which DC they contact.
+Review the selections and click Next. The server will now be promoted to a domain controller, and it will automatically reboot once the promotion is complete.
 
-DNS enables DCs to communicate and replicate data, which is essential for maintaining the availability and consistency of the Active Directory environment.
+<h3>4. Installing and Configuring DNS</h3>
+DNS (Domain Name System) is required for AD DS to function properly. It resolves domain names to IP addresses, enabling communication across the network.
 
-## 4. Active Directory Certificate Services (AD CS) Role
+Steps to Install DNS:
+- Install DNS Role: You can also install the DNS server role during the promotion process. If not already installed:
+- Open Server Manager → Add Roles and Features.
+- Select the DNS Server and proceed with the installation.
+- Configure DNS: After the installation, DNS should automatically configure itself during the domain controller promotion. However, you can verify and manage the DNS settings by opening the DNS Manager.
 
-For secure communication between users, services, and resources, **Active Directory Certificate Services (AD CS)** issues digital certificates. Here's how it works:
+<h2>5. Understanding Key Concepts</h2>
+<h3>Active Directory:</h3>
+Active Directory (AD) is a directory service used to manage permissions and access to networked resources. It stores information about users, computers, and other network resources, allowing for centralized management.
 
-- **Certificates** are required for secure connections (e.g., SSL/TLS).
-- When a user or service needs a certificate, AD CS issues the necessary certificate to establish a secure connection.
-- DNS resolves the correct resource or service name to ensure that the connection is established with the appropriate server.
-- Secure communication is maintained through certificates, protecting sensitive data and ensuring integrity.
+<h3>DNS (Domain Name System):</h3>
+DNS is essential for translating human-readable domain names (like example.local) into IP addresses that computers use to identify each other on the network. AD relies on DNS for locating domain controllers.
 
-AD CS, in combination with DNS, ensures that secure connections are made and data is protected within the Active Directory environment.
+<h3>Domain Controller (DC): </h3>
+A Domain Controller is a server that responds to security authentication requests (logging in, checking permissions, etc.). It stores and manages the Active Directory database.
 
----
+<h3>6. Group Policy (GP) & Group Policy Objects (GPO)</h3>
+Group Policy (GP):
+Group Policy is a Microsoft feature that allows administrators to control user and computer settings in an Active Directory environment. This includes setting security policies, software installation, and other configurations across the entire domain.
 
-## Summary of DNS in Active Directory
+Group Policy Objects (GPO):
+GPOs are collections of settings that are applied to computers and users within a domain. A GPO can be linked to an organizational unit (OU), site, or domain.
 
-To summarize, DNS in an Active Directory environment serves many important roles:
+Common GPO Configurations:
+- Password Policies: Set password complexity, length, expiration, and lockout settings.
+- Software Installation: Automate the installation of applications.
+- User Permissions: Control which users have access to specific resources.
+- To manage GPOs, use the Group Policy Management Console (GPMC).
 
-- **User Login**: Directs users to the correct Domain Controller for authentication.
-- **Service Connections**: Resolves service names to IP addresses, allowing users to access resources like file servers.
-- **Active Directory Replication**: Helps Domain Controllers communicate and synchronize data for availability and consistency.
-- **Active Directory Certificate Services (AD CS)**: Issues certificates for secure communication, with DNS resolving the necessary resources.
+Steps for Managing GPOs:
+- Open Group Policy Management from the Server Manager.
+- Right-click on Group Policy Objects and choose New to create a new GPO.
+- Right-click the newly created GPO, select Edit, and configure the policies within the Group Policy Management Editor.
+- Link the GPO to the appropriate domain, site, or organizational unit (OU).
 
-In conclusion, DNS is a fundamental part of the Active Directory ecosystem, supporting user authentication, resource access, replication, and secure communication.
- 
+<h3>7. Registry Editor Overview</h3>
+What is the Registry Editor?
+The Registry Editor (regedit) is a powerful tool in Windows that allows administrators to view and modify the system registry. The registry stores configuration settings for the operating system, software, hardware, and user preferences.
+
+While the registry is essential, it should be used cautiously, as improper changes can damage the system. Always back up the registry before making any modifications.
+
+<h3>8. Top-Level Policies in Corporate Environments</h3>
+Password Policy:
+A strong password policy ensures security by enforcing requirements like minimum length, complexity (uppercase, lowercase, digits, symbols), and expiration.
+
+Account Lockout Policy:
+This policy defines how many failed login attempts a user can have before their account is locked for a specified period. This helps prevent brute-force attacks.
+
+Software Restriction Policies:
+These policies are used to control which software can or cannot run on the domain-connected machines. They enhance security by preventing the execution of unauthorized software.
+
+Audit Policy:
+Audit policies allow administrators to track events such as logins, file access, and system changes. These logs are critical for monitoring the security of the network.
+
+<h3>Final Thoughts</h3>
+Setting up Active Directory on Windows Server 2019 is a fundamental skill for any IT professional managing network environments. By mastering the installation of AD DS, DNS, and Group Policy, you’ll be equipped to create a secure, scalable, and efficient infrastructure for managing users and resources. These concepts are not only critical in small to medium-sized organizations but are also essential in large enterprise environments.
+
+By following this guide, you’ve taken the first step toward becoming proficient in the most commonly used tools in Windows server administration. With further exploration and experience, you’ll be able to optimize and secure your environment, ensuring smooth operation and better management of your network.
+
+<p>Happy configuring!&#128640;</p>
 
