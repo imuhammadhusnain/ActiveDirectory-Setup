@@ -37,7 +37,10 @@ After installing AD DS, the next step is to promote the server to a Domain Contr
 Steps to Promote the Server:
 - Open Server Manager.
 - Once AD DS is installed, click on the Notification Flag at the top right and click Promote this server to a domain controller.
+- And also, please make sure you do not set up AD CS before promoting a server to a domain controller, otherwise it will fail at the pre-requisites test.
 
+?
+ 
 Deployment Configuration:
 
 - Choose Add a new forest if you are setting up a new domain, and provide a Root domain name (e.g., example.local).
