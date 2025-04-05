@@ -95,6 +95,8 @@ Group Policy is a Microsoft feature that allows administrators to control user a
 ### Group Policy Objects (GPO):
 GPOs are collections of settings that are applied to computers and users within a domain. A GPO can be linked to an organizational unit (OU), site, or domain.
 
+<tb>![snip](https://github.com/imuhammadhusnain/ActiveDirectory-Setup/blob/main/GPO.png)</tb>
+
 #### Common GPO Configurations:
 - **Password Policies**: Set password complexity, length, expiration, and lockout settings.
 - **Software Installation**: Automate the installation of applications.
@@ -113,18 +115,7 @@ Once you have configured and linked the GPOs, you can force the changes to take 
 gpupdate /force
 ```
 
----
-
-### 7. Registry Editor Overview
-
-#### What is the Registry Editor?
-The Registry Editor (regedit) is a powerful tool in Windows that allows administrators to view and modify the system registry. The registry stores configuration settings for the operating system, software, hardware, and user preferences.
-
-> **Important**: The registry is essential, but it should be used cautiously, as improper changes can damage the system. Always **back up** the registry before making any modifications.
-
----
-
-### 8. Top-Level Policies in Corporate Environments
+### 7. Top-Level Policies in Corporate Environments
 
 - **Password Policy**:  
 A strong password policy ensures security by enforcing requirements like minimum length, complexity (uppercase, lowercase, digits, symbols), and expiration.
