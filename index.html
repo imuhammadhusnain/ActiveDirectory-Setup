@@ -179,27 +179,27 @@
         <p>DNS translates domain names (like <em>example.local</em>) into IP addresses, helping computers on the network find each other.</p>
         <img src="https://raw.githubusercontent.com/imuhammadhusnain/ActiveDirectory-Setup/main/DNS%20role.png" alt="DNS" style="width:100%; max-width:600px; margin-top: 20px;">
         <h3>Domain</h3>
-        <p><strong>Example:</strong> A domain is like a neighborhood. All the houses (computers, users, devices) in this neighborhood share the same rules and directory. For instance, the domain "example.com" might include all the computers and users in your company.</p>
+        <p>A domain is like a neighborhood. All the houses (computers, users, devices) in this neighborhood share the same rules and directory. For instance, the domain "example.com" might include all the computers and users in your company.</p>
         <h3>Forest</h3>
-        <p><strong>Example:</strong> A forest is a collection of multiple neighborhoods (domains) that share common rules. A company with multiple branches might have a forest that includes domains for each branch.</p>
+        <p>A forest is a collection of multiple neighborhoods (domains) that share common rules. A company with multiple branches might have a forest that includes domains for each branch.</p>
         <h3>Tree</h3>
-        <p><strong>Example:</strong> A tree is a group of domains connected in a hierarchy. "example.com" might have subdomains like "sales.example.com" and "hr.example.com."</p>
+        <p>A tree is a group of domains connected in a hierarchy. "example.com" might have subdomains like "sales.example.com" and "hr.example.com."</p>
         <h3>Organizational Unit (OU)</h3>
-        <p><strong>Example:</strong> An OU is like a filing cabinet within a domain. It helps organize users, groups, and computers. You might have an OU for the Sales department and another for HR.</p>
+        <p>An OU is like a filing cabinet within a domain. It helps organize users, groups, and computers. You might have an OU for the Sales department and another for HR.</p>
         <h3>Global Catalog (GC)</h3>
-        <p><strong>Example:</strong> The GC is a master index that helps you quickly find information across all domains in a forest. If you need to find a user who works in a different branch, the GC can help locate their details.</p>
+        <p>The GC is a master index that helps you quickly find information across all domains in a forest. If you need to find a user who works in a different branch, the GC can help locate their details.</p>
         <h3>Schema</h3>
-        <p><strong>Example:</strong> The schema is the blueprint for your directory. It defines what types of information can be stored. It specifies that a user object can have attributes like name, email, and phone number.</p>
+        <p>The schema is the blueprint for your directory. It defines what types of information can be stored. It specifies that a user object can have attributes like name, email, and phone number.</p>
         <h3>Group Policy</h3>
-        <p><strong>Example:</strong> Group Policy is a set of rules that apply to everyone in the domain. You can use Group Policy to enforce password complexity requirements for all users.</p>
+        <p>Group Policy is a set of rules that apply to everyone in the domain. You can use Group Policy to enforce password complexity requirements for all users.</p>
         <h3>Replication</h3>
-        <p><strong>Example:</strong> Replication is the process of copying data between domain controllers to keep everything up-to-date. If you change your password, replication ensures that all DCs know about the change.</p>
+        <p>Replication is the process of copying data between domain controllers to keep everything up-to-date. If you change your password, replication ensures that all DCs know about the change.</p>
         <h3>Security Identifier (SID)</h3>
-        <p><strong>Example:</strong> A SID is a unique identifier for each user or group. Even if you change your username, your SID remains the same, ensuring your permissions stay intact.</p>
+        <p>A SID is a unique identifier for each user or group. Even if you change your username, your SID remains the same, ensuring your permissions stay intact.</p>
         <h3>Distinguished Name (DN)</h3>
-        <p><strong>Example:</strong> The DN is a full address for an object in the directory. A user's DN might be "CN=John Doe, OU=Sales, DC=example, DC=com."</p>
+        <p>The DN is a full address for an object in the directory. A user's DN might be "CN=John Doe, OU=Sales, DC=example, DC=com."</p>
         <h3>Flexible Single Master Operation (FSMO) Roles</h3>
-        <p><strong>Example:</strong> These are special tasks assigned to certain domain controllers. The PDC Emulator role helps synchronize time across the domain.</p>
+        <p>These are special tasks assigned to certain domain controllers. The PDC Emulator role helps synchronize time across the domain.</p>
     </section>
     <section class="content-section">
         <h2>6. Configuring Group Policy (GP) & Group Policy Objects (GPO)</h2>
