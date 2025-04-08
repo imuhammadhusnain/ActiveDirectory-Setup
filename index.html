@@ -127,6 +127,11 @@
             </li>
             <li><strong>Install:</strong> Review the features and click <strong>Install</strong>. The AD DS components will now be installed.</li>
         </ol>
+        <img src="https://raw.githubusercontent.com/imuhammadhusnain/ActiveDirectory-Setup/main/AD%20DS%20error%20prerequisite.png" alt="Promoting the server to a domain controller" style="width:100%; max-width:600px; margin-top: 20px;">
+
+    <div class="tip">
+        <strong>Note:</strong> I resolved the error by going to <strong>Tools</strong> at the top right in Server Manager, removing the AD CS service, completing the promotion of the server to a Domain Controller, and then reinstalling the AD CS from Tools after the promotion was completed successfully.
+    </div>
     </section>
 
     <section class="content-section">
