@@ -223,8 +223,9 @@
         <h3>Account Lockout Policy:</h3>
         <p>This policy defines how many failed login attempts a user can have before their account is locked for a specified period. This helps prevent brute-force attacks.</p>
         <img src="https://raw.githubusercontent.com/imuhammadhusnain/ActiveDirectory-Setup/main/GPO.png" alt="DNS" style="width:100%; max-width:600px; margin-top: 20px;">
-        <h3>Software Restriction Policies:</h3>
-        <p>These policies are used to control which software can or cannot run on domain-connected machines. They enhance security by preventing the execution of unauthorized software.</p>
+        <h3>Audit Policies:</h3>
+        <p>Audit policies in Active Directory help track and log various activities for security and compliance purposes. They monitor events such as logon attempts, changes to user accounts, access to directory services, and system-level events. By enabling these policies, organizations can detect unauthorized access, track user activities, and ensure the integrity of their systems..</p>
+        <img src="https://raw.githubusercontent.com/imuhammadhusnain/ActiveDirectory-Setup/main/audit.png" alt="DNS" style="width:100%; max-width:600px; margin-top: 20px;">
     <div class="tip">
     <strong>Tip:</strong> While it’s possible to modify the Default Domain Policy, the best practice is to avoid doing so. Instead, create separate, focused GPOs for specific settings and apply them at the root of Organizational Units (OUs) to mirror your organizational structure. Limit domain-level GPOs to the Default Domain Policy, and always test GPOs before deployment. Regularly monitor and audit GPO changes for a secure and efficient environment.
     </div>
