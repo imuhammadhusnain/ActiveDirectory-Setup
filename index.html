@@ -1,265 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Active Directory Setup Guide - Windows Server 2019</title>
+    <title>Active Directory Setup Guide</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        .back-button {
-  display: inline-block;
-  padding: 12px 25px;
-  background-color: #2c3e50; /* Dark blue-gray color */
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for a modern look */
-  margin-top: 20px;
-  transition: all 0.3s ease;
-  width: 250px;
-  text-transform: uppercase; /* Making text all caps for emphasis */
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-}
-
-.back-button:hover {
-  background-color: #3498db; /* Lighter blue on hover */
-  transform: translateY(-3px); /* Slight lift effect on hover */
-}
-
-.back-button:active {
-  transform: translateY(0);
-}
-
         body {
             font-family: Arial, sans-serif;
-            line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #f4f4f9;
             color: #333;
         }
-
-        header {
-            background-color: #2c3e50;
+        header, footer {
+            background-color: #333;
             color: white;
+            padding: 1em 0;
             text-align: center;
-            padding: 1.5rem 0;
         }
-
-        header h1 {
-            margin: 0;
-        }
-
-        .container {
-            width: 80%;
-            margin: 2rem auto;
-            background-color: white;
-            padding: 2rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            color: #2c3e50;
-        }
-
-        h3 {
-            color: #34495e;
-        }
-
-        ul {
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
-        }
-
-        ul li {
-            margin-bottom: 10px;
-        }
-
-        .tip {
-            background-color: #f0ad4e;
-            padding: 10px;
+        header button, footer button {
+            background-color: #5cb85c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
             border-radius: 5px;
-            color: #fff;
-            font-weight: bold;
-            margin-bottom: 20px;
+            font-size: 16px;
         }
-
-        .note {
-            background-color: #d9534f;
-            padding: 10px;
-            border-radius: 5px;
-            color: #fff;
-            font-weight: bold;
-            margin-bottom: 20px;
+        header button:hover, footer button:hover {
+            background-color: #4cae4c;
         }
-
-        .image {
-            text-align: center;
-            margin-bottom: 20px;
+        main {
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
         }
-
-        .image img {
-            max-width: 80%;
+        h1, h2 {
+            color: #2a6496;
+        }
+        p, li {
+            line-height: 1.6;
+        }
+        .content-section {
+            margin-bottom: 30px;
+        }
+        .content-section img {
+            max-width: 100%;
             height: auto;
+            display: block;
+            margin-top: 10px;
         }
-
-        footer {
-            background-color: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
+        .tip {
+            background-color: #e9f7df;
+            border-left: 4px solid #82c91e;
+            padding: 10px;
+            margin: 20px 0;
         }
-
-        a {
-            color: #3498db;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
+        .note {
+            background-color: #f8d7da;
+            border-left: 4px solid #f5c6cb;
+            padding: 10px;
+            margin: 20px 0;
         }
     </style>
 </head>
-
 <body>
 
-    <header>
-        <h1>Active Directory Setup on Windows Server 2019</h1>
-        <p>Step-by-step guide for setting up Active Directory, DNS, and more!</p>
-    </header>
+<header>
+    <h1>Active Directory Setup Guide</h1>
+    <button onclick="goToPortfolio()">Back to Portfolio</button>
+</header>
 
-    <div class="container">
-        <section>
-            <h2>1. Preparing the Windows Server 2019 Environment</h2>
-            <p>Before beginning the installation, ensure you have the following:</p>
-            <ul>
-                <li>A fresh installation of Windows Server 2019 (Standard or Datacenter version).</li>
-                <li>A static IP address (recommended for AD DS and DNS).</li>
-                <li>Administrative credentials for the server.</li>
-            </ul>
+<main>
+    <section class="content-section">
+        <h2>1. Preparing the Windows Server 2019 Environment</h2>
+        <p>Before starting, make sure you have:</p>
+        <ul>
+            <li>A fresh installation of Windows Server 2019 (Standard or Datacenter version).</li>
+            <li>A static IP address (recommended for AD DS and DNS).</li>
+            <li>Administrative credentials for the server.</li>
+        </ul>
+        <h3>Steps to Prepare the Server:</h3>
+        <ol>
+            <li><strong>Install Windows Server 2019:</strong> Follow the installation prompts to set up Windows Server 2019.</li>
+            <li><strong>Configure the Server:</strong> Set a static IP address:
+                <ul>
+                    <li>Go to <strong>Network and Sharing Center</strong> → <strong>Change Adapter Settings</strong> → Right-click on your network adapter → <strong>Properties</strong> → <strong>Internet Protocol Version 4 (TCP/IPv4)</strong> → Set a static IP address.</li>
+                </ul>
+            </li>
+        </ol>
+        <div class="tip">
+            <strong>Tip:</strong> Keep your server up to date with the latest Windows updates for security and functionality.
+        </div>
+    </section>
 
-            <div class="tip">
-                <p><strong>Tip:</strong> Install the latest Windows Updates to ensure the server is up-to-date.</p>
-            </div>
+    <section class="content-section">
+        <h2>2. Installing Active Directory Domain Services (AD DS)</h2>
+        <p>AD DS is the role that provides user authentication and resource management in your network.</p>
+        <h3>Steps to Install AD DS:</h3>
+        <ol>
+            <li><strong>Open Server Manager:</strong> Log in and click the <strong>Server Manager</strong> icon.</li>
+            <li><strong>Add Roles and Features:</strong> 
+                <ul>
+                    <li>Click on <strong>Add Roles and Features</strong>.</li>
+                    <li>Continue clicking <strong>Next</strong> until you reach the <strong>Server Roles</strong> section.</li>
+                    <li>Check <strong>Active Directory Domain Services</strong> and click <strong>Next</strong>.</li>
+                </ul>
+            </li>
+            <li><strong>Install:</strong> Review the features and click <strong>Install</strong>. The AD DS components will now be installed.</li>
+        </ol>
+    </section>
 
-            <h3>Steps to Prepare the Server:</h3>
-            <ul>
-                <li>Install Windows Server 2019.</li>
-                <li>Configure the server's hostname and set a static IP address.</li>
-            </ul>
-        </section>
+    <section class="content-section">
+        <h2>3. Promoting the Server to a Domain Controller</h2>
+        <p>Once AD DS is installed, you need to promote the server to a Domain Controller (DC).</p>
+        <h3>Steps to Promote the Server:</h3>
+        <ol>
+            <li><strong>Open Server Manager:</strong> Again, go to the <strong>Notification Flag</strong> at the top right and select <strong>Promote this server to a domain controller</strong>.</li>
+            <li><strong>Set Up Domain Controller:</strong> 
+                <ul>
+                    <li>Choose <strong>Add a new forest</strong> (if setting up a new domain) and provide a <strong>Root domain name</strong> (e.g., <em>example.local</em>).</li>
+                    <li>Set the <strong>Forest functional level</strong> (Windows Server 2016 or higher is recommended).</li>
+                    <li>Set the <strong>Domain functional level</strong> (same as the forest level).</li>
+                    <li>Set the <strong>DSRM (Directory Services Restore Mode)</strong> password.</li>
+                </ul>
+            </li>
+            <li><strong>Complete the Promotion:</strong> After reviewing your settings, click <strong>Next</strong>. The server will be promoted to a domain controller and will reboot automatically once finished.</li>
+        </ol>
+    </section>
 
-        <section>
-            <h2>2. Installing Active Directory Domain Services (AD DS)</h2>
-            <p>Active Directory Domain Services is the role that provides a central directory for user authentication and resource management.</p>
+    <section class="content-section">
+        <h2>4. Installing and Configuring DNS</h2>
+        <p>DNS is crucial for the AD DS to function correctly because it helps resolve domain names to IP addresses.</p>
+        <h3>Steps to Install and Configure DNS:</h3>
+        <ol>
+            <li><strong>Install the DNS Role:</strong> You can install the DNS role during the promotion process. If you missed it:
+                <ul>
+                    <li>Open <strong>Server Manager</strong> → <strong>Add Roles and Features</strong>.</li>
+                    <li>Select the <strong>DNS Server</strong> and proceed with installation.</li>
+                </ul>
+            </li>
+            <li><strong>DNS Configuration:</strong> DNS should be set up automatically during the domain controller promotion. You can manage and verify DNS settings through <strong>DNS Manager</strong>.</li>
+        </ol>
+    </section>
 
-            <h3>Steps to Install AD DS:</h3>
-            <ul>
-                <li>Open Server Manager.</li>
-                <li>Click on <strong>Add Roles and Features</strong>.</li>
-                <li>Select <strong>Active Directory Domain Services</strong> and click <strong>Next</strong>.</li>
-                <li>Continue through the wizard and click <strong>Install</strong>.</li>
-            </ul>
-        </section>
+    <section class="content-section">
+        <h2>5. Key Concepts You Should Know</h2>
+        <h3>Active Directory (AD)</h3>
+        <p>Active Directory is like a giant phonebook for your network, storing information about users, computers, and other resources. It allows administrators to manage these resources centrally.</p>
+        <h3>Domain Controller (DC)</h3>
+        <p>A Domain Controller is a server that handles login requests, checks permissions, and manages security within the network. It's the backbone of your AD setup.</p>
+        <h3>DNS (Domain Name System)</h3>
+        <p>DNS translates domain names (like <em>example.local</em>) into IP addresses, helping computers on the network find each other.</p>
+    </section>
 
-        <section>
-            <h2>3. Promoting the Server to Domain Controller</h2>
-            <p>After installing AD DS, the next step is to promote the server to a Domain Controller.</p>
+    <section class="content-section">
+        <h2>6. Configuring Group Policy (GP) & Group Policy Objects (GPO)</h2>
+        <p>Group Policy allows administrators to manage and configure security and other settings across their network.</p>
+        <h3>Steps to Configure Group Policy:</h3>
+        <ol>
+            <li><strong>Open Group Policy Management:</strong> From Server Manager, go to <strong>Tools</strong> → <strong>Group Policy Management</strong>.</li>
+            <li><strong>Create a New GPO:</strong> Right-click on <strong>Group Policy Objects</strong> → <strong>New</strong>.</li>
+            <li><strong>Link the GPO:</strong> Right-click on the domain, site, or OU and select <strong>Link an Existing GPO</strong>.</li>
+            <li><strong>Edit the GPO:</strong> Right-click the GPO and choose <strong>Edit</strong> to configure specific policies.</li>
+        </ol>
+        <p>To apply the GPO changes immediately, use the command:</p>
+        <pre>gpupdate /force</pre>
+    </section>
 
-            <h3>Steps to Promote the Server:</h3>
-            <ul>
-                <li>Open Server Manager.</li>
-                <li>Click on the <strong>Notification Flag</strong> and click <strong>Promote this server to a domain controller</strong>.</li>
-                <li>Follow the wizard and choose appropriate options.</li>
-            </ul>
+    <section class="content-section">
+        <h2>7. Top-Level Policies in Corporate Environments</h2>
+        <h3>Password Policy:</h3>
+        <p>A strong password policy ensures security by enforcing requirements like minimum length, complexity (uppercase, lowercase, digits, symbols), and expiration.</p>
+        <h3>Account Lockout Policy:</h3>
+        <p>This policy defines how many failed login attempts a user can have before their account is locked for a specified period. This helps prevent brute-force attacks.</p>
+        <h3>Software Restriction Policies:</h3>
+        <p>These policies are used to control which software can or cannot run on domain-connected machines. They enhance security by preventing the execution of unauthorized software.</p>
+        <h3>Audit Policy:</h3>
+        <p>Audit policies allow administrators to track events such as logins, file access, and system changes. These logs are critical for monitoring the security of the network.</p>
+        <p>These are the most useful policies in the organization that can be easily deployed and are well understood in how they work. Additionally, many others can be configured based on requirements.</p>
+    </section>
 
-            <div class="note">
-                <p><strong>Important Note:</strong> Ensure AD CS is not set up before promoting the server to a domain controller.</p>
-            </div>
+    <section class="content-section">
+        <h2>Final Thoughts</h2>
+        <p>Setting up Active Directory on Windows Server 2019 is a fundamental skill for any IT professional managing network environments. By mastering the installation of AD DS, DNS, and Group Policy, you’ll be equipped to create a secure, scalable, and efficient infrastructure for managing users and resources. These concepts are not only critical in small to medium-sized organizations but are also essential in large enterprise environments.</p>
+        <p>By following this guide, you're not just setting up a server—you're enhancing your understanding of organizational infrastructure, which is crucial for any IT professional. Trying this setup will expand your knowledge and help you see the bigger picture of how a network should operate, securing and optimizing it for smooth management. This experience will undoubtedly sharpen your skills and give you the confidence to handle more complex IT challenges.</p>
+        <p>Happy configuring! 🚀</p>
+    </section>
+</main>
 
-            <div class="image">
-                <img src="https://github.com/imuhammadhusnain/ActiveDirectory-Setup/blob/main/AD%20DS%20error%20prerequisite.png" alt="Error Image">
-            </div>
+<footer>
+    <button onclick="goToPortfolio()">Back to Portfolio</button>
+</footer>
 
-            <h3>Deployment Configuration:</h3>
-            <ul>
-                <li>Choose <strong>Add a new forest</strong> if setting up a new domain.</li>
-                <li>Provide a <strong>Root domain name</strong> (e.g., example.local).</li>
-                <li>Set the <strong>Forest functional level</strong> (recommended Windows Server 2016 or higher).</li>
-            </ul>
-
-            <div class="image">
-                <img src="https://github.com/imuhammadhusnain/ActiveDirectory-Setup/blob/main/AD%20DS%201.png" alt="Deployment Configuration">
-            </div>
-
-            <p>The server will now be promoted to a domain controller and reboot once the promotion is complete.</p>
-        </section>
-
-        <section>
-            <h2>4. Installing and Configuring DNS</h2>
-            <p>DNS (Domain Name System) is required for AD DS to function properly.</p>
-
-            <h3>Steps to Install DNS:</h3>
-            <ul>
-                <li>Install the DNS role via Server Manager or during the promotion process.</li>
-                <li>Verify DNS settings in the DNS Manager.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>5. Understanding Key Concepts</h2>
-            <h3>Active Directory</h3>
-            <p>Active Directory (AD) is a directory service used to manage permissions and access to networked resources.</p>
-
-            <h3>DNS (Domain Name System)</h3>
-            <p>DNS resolves domain names to IP addresses, which is critical for AD functionality.</p>
-
-            <h3>Domain Controller (DC)</h3>
-            <p>A Domain Controller is a server that manages security authentication requests and stores the Active Directory database.</p>
-
-            <div class="image">
-                <img src="https://github.com/imuhammadhusnain/ActiveDirectory-Setup/blob/main/AD%20DS%202.png" alt="Domain Controller Image">
-            </div>
-        </section>
-
-        <section>
-            <h2>6. Group Policy (GP) & Group Policy Objects (GPO)</h2>
-            <h3>Group Policy (GP)</h3>
-            <p>Group Policy allows administrators to manage user and computer settings across a domain.</p>
-
-            <h3>Group Policy Objects (GPO)</h3>
-            <p>GPOs are collections of settings applied to users or computers within a domain. They can be linked to organizational units (OUs), sites, or domains.</p>
-
-            <div class="image">
-                <img src="https://github.com/imuhammadhusnain/ActiveDirectory-Setup/blob/main/GPO.png" alt="Group Policy Management">
-            </div>
-        </section>
-
-        <section>
-            <h2>7. Top-Level Policies in Corporate Environments</h2>
-            <ul>
-                <li><strong>Password Policy</strong>: Ensure strong password security.</li>
-                <li><strong>Account Lockout Policy</strong>: Protect against brute-force attacks.</li>
-                <li><strong>Software Restriction Policies</strong>: Control which software can run.</li>
-                <li><strong>Audit Policy</strong>: Monitor and track security events.</li>
-            </ul>
-        </section>
-    </div>
-        <a href="https://imuhammadhusnain.github.io/portfolio" class="back-button">Go Back to Portfolio</a>
-    <footer>
-        <p>&copy; 2025 Active Directory Setup Guide | <a href="https://imuhammadhusnain.github.io/My-portfolio/">Go Back To Portfolio</a></p>
-    </footer>
+<script>
+    function goToPortfolio() {
+        window.location.href = 'https://imuhammadhusnain.github.io/My-portfolio/';  // Replace with your actual portfolio URL
+    }
+</script>
 
 </body>
-
 </html>
