@@ -225,6 +225,9 @@
         <img src="https://raw.githubusercontent.com/imuhammadhusnain/ActiveDirectory-Setup/main/GPO.png" alt="DNS" style="width:100%; max-width:600px; margin-top: 20px;">
         <h3>Software Restriction Policies:</h3>
         <p>These policies are used to control which software can or cannot run on domain-connected machines. They enhance security by preventing the execution of unauthorized software.</p>
+    <div class="tip" style="background-color: #28a745; color: white; padding: 10px; margin-top: 20px; border-radius: 5px;">
+    <strong>Tip:</strong> While it’s possible to modify the Default Domain Policy, the best practice is to avoid doing so. Instead, create separate, focused GPOs for specific settings and apply them at the root of Organizational Units (OUs) to mirror your organizational structure. Limit domain-level GPOs to the Default Domain Policy, and always test GPOs before deployment. Regularly monitor and audit GPO changes for a secure and efficient environment.
+    </div>
     </section>
     <section class="content-section">
         <h2>Final Thoughts</h2>
